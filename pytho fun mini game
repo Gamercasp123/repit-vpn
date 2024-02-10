@@ -1,0 +1,57 @@
+def game():
+    print("Welcome to the game")
+    print("You are in a dark room")
+    print("There is a door to your right and left")
+    print("Which one do you take?")
+    choice = input("> ")
+    if choice == "left":
+        print("You have chosen the left door")
+        print("You are in a room with a monster")
+        print("The monster has a key")
+        print("What do you do?")
+        print("1. Take the key")
+        print("2. Run away")
+        choice = input("> ")
+        if choice == "1":
+            print("The monster has eaten you good bye")  
+        elif choice == "2":
+            print("You have escaped")  
+        else:
+            print("Invalid choice")
+    elif choice == "right":
+        print("You have chosen the right door")
+        print("You are in a room with a treasure")
+        print("There is a door behind the treasure")
+        print("What do you do?")
+        print("1. Take the treasure")
+        print("2. Leave the treasure")
+        choice = input("> ")
+        if choice == "1":
+            print("You have taken the treasure")
+            print("You have won the game")
+        elif choice == "2":
+            print("You have left the treasure")
+            print("You have won the game")
+        else:
+            print("Invalid choice")
+    else:
+        print("Invalid choice")
+
+def reset_game():
+    global name
+    name = input('What is your name?\n')
+    game()
+
+name = input('What is your name?\n')
+game()
+
+while True:
+    print("\nDo you want to play again? (yes/no)")
+    play_again = input("> ").lower()
+    if play_again == "yes":
+        reset_game()
+    elif play_again == "no":
+        print("Thanks for playing!")
+        break
+    else:
+        print("Invalid choice. Please enter 'yes' or 'no'.")
