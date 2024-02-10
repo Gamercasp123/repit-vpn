@@ -1,0 +1,54 @@
+import random
+
+def generate_number(difficulty_level):
+    return random.randint(1, 10 * difficulty_level)
+
+def generate_division_problem(difficulty_level):
+    num1 = generate_number(difficulty_level)
+    num2 = generate_number(difficulty_level)
+    result = num1 / num2
+    while not result.is_integer() or result == 0:
+        num1 = generate_number(difficulty_level)
+        num2 = generate_number(difficulty_level)
+        result = num1 / num2
+    return int(result)
+
+def get_math_symbol(math_operation):
+    if math_operation == 'addition':
+        return '+'
+    elif math_operation == 'subtraction':
+        return '-'
+    elif math_operation == 'multiplication':
+        return '×'
+    elif math_operation == 'division':
+        return '÷'
+
+def start_game():
+    math_operation = input("Choose Math Operation (addition, subtraction, multiplication, division): ")
+    difficulty_level = int(input("Choose Difficulty Level (1-6): "))
+    present_math_problem(math_operation, difficulty_level)
+
+def present_math_problem(math_operation, difficulty_level):
+    if math_operation in ['addition', 'subtraction', 'multiplication']:
+        num1 = generate_number(difficulty_level)
+        num2 = generate_number(difficulty_level)
+        if math_operation == 'addition':
+            correct_result = num1 + num2
+        elif math_operation == 'subtraction':
+            correct_result = num1 - num2
+        else:
+            correct_result = num1 * num2
+    else:  # division
+        correct_result = generate_division_problem(difficulty_level)
+
+    print(f"What is {num1} {get_math_symbol(math_operation)} {num2}?")
+    user_answer = float(input("Your answer: "))
+    check_answer(user_answer, correct_result)
+
+def check_answer(user_answer, correct_result):
+    if user_answer == correct_result:
+        print("Correct!")
+    else:
+        print("Incorrect!")
+
+start_game()
