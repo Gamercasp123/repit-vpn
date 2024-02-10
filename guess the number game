@@ -1,0 +1,75 @@
+import random
+import time
+
+def display_title():
+    print("\n=== Welcome to the Super Fun Guess The Number Game ===\n")
+    time.sleep(1)
+
+def display_instructions():
+    print("Instructions:")
+    print("1. I will think of a number between 1 and 100.")
+    print("2. You have to guess the number in as few attempts as possible.")
+    print("3. After each guess, I'll give you a hint whether your guess is too high, too low, or just right!")
+    print("4. You can also ask for a hint, but it will cost you some points!")
+    print("5. If you guess the number within 5 attempts, you'll get bonus points!")
+    print("6. Let's see how fast you can guess it!\n")
+    time.sleep(2)
+
+def generate_random_number():
+    return random.randint(1, 100)
+
+def calculate_score(attempts):
+    if attempts <= 5:
+        return 100
+    else:
+        return max(0, 100 - (attempts - 5) * 5)
+
+def play_game():
+    number_to_guess = generate_random_number()
+    attempts = 0
+    points = 100
+
+    print("\nI've thought of a number between 1 and 100. Can you guess it?\n")
+
+    while True:
+        guess = input("Enter your guess (or 'q' to quit, 'h' for hint): ")
+
+        if guess.lower() == 'q':
+            print("\nQuitting game...")
+            time.sleep(1)
+            print("Thanks for playing!")
+            break
+
+        if guess.lower() == 'h':
+            if points >= 20:
+                print(f"A hint: The number is {'even' if number_to_guess % 2 == 0 else 'odd'}.")
+                points -= 20
+                print(f"You lost 20 points. Current points: {points}")
+            else:
+                print("Sorry, you don't have enough points for a hint!")
+            continue
+
+        if not guess.isdigit():
+            print("Please enter a valid number.")
+            continue
+
+        guess = int(guess)
+        attempts += 1
+
+        if guess < number_to_guess:
+            print("Too low! Try again.")
+        elif guess > number_to_guess:
+            print("Too high! Try again.")
+        else:
+            score = calculate_score(attempts)
+            print(f"Congratulations! You've guessed the number {number_to_guess} in {attempts} attempts!")
+            print(f"Final score: {score} points")
+            break
+
+def main():
+    display_title()
+    display_instructions()
+    play_game()
+
+if __name__ == "__main__":
+    main()
